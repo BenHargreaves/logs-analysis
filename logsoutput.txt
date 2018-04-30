@@ -1,0 +1,20 @@
+
+
+The Top three most popular Articles are:
+
+Candidate is jerk, alleges rival -- 338647 views
+Bears love berries, alleges bear -- 253801 views
+Bad things gone, say good people -- 170098 views
+
+
+The Most Popular Authors ranked by page views:
+
+Ursula La Multa -- 507594 article views
+Rudolf von Treppenwitz -- 423457 article views
+Anonymous Contributor -- 170098 article views
+Markoff Chaney -- 84557 article views
+
+
+Days with a higher than 1% failure rate:
+
+July 17, 2016 -- 2.26% errors
