@@ -18,9 +18,9 @@ If Using the database-included branch, follow these steps to get up and running
 * Fork & clone the database-included branch. 
 * Open up bash / terminal and navigate to the same directory you cloned the repo
 * run the following command to initialize the newsdata DB in PostgresQL
-'''
+```
 psql -d news -f newsdata.sql
-'''
+```
 * To run the logs- execute the following command in the same terminal window
 * python logs.py
 
