@@ -33,21 +33,10 @@ class reportingTool():
         '''
         Returns the top 3 most popular articles from db, and their viewcount
         '''
-        #popularArtclesQuery = '''
-       #             SELECT articles.title, subq.num
-        #            FROM   (SELECT path, count(path) as num
-         #                   FROM log
-          #                  WHERE path != '/'
-           #                 GROUP BY path
-            #                ORDER BY num DESC
-             #               LIMIT 3) as subq, articles
-              #      WHERE subq.path LIKE '/article/' || articles.slug
-               #     ORDER BY subq.num DESC
-                #    '''
 
         popularArtclesQuery = '''
                     SELECT articles.title, count(log.path) as num
-                    FROM   log, articles
+                    FROM log, articles
                     WHERE log.path LIKE '/article/' || articles.slug
                     GROUP BY articles.title
                     ORDER BY num DESC
@@ -65,6 +54,7 @@ class reportingTool():
         Returns authors with the most article views
         ordered by most popular author
         '''
+
         popularAuthorsQuery = '''
                 SELECT authors.name, sum(subq.count) as subqcount
                 FROM   (SELECT articles.slug, articles.author, count(log.path)
@@ -121,4 +111,4 @@ report = reportingTool('news')
 
 report.mostPopularArticles()
 report.mostPopularAuthors()
-#report.daysAboveFailLimit()
+report.daysAboveFailLimit()
