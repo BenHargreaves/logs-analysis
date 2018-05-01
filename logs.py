@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import psycopg2
 
 
@@ -31,16 +33,25 @@ class reportingTool():
         '''
         Returns the top 3 most popular articles from db, and their viewcount
         '''
+        #popularArtclesQuery = '''
+       #             SELECT articles.title, subq.num
+        #            FROM   (SELECT path, count(path) as num
+         #                   FROM log
+          #                  WHERE path != '/'
+           #                 GROUP BY path
+            #                ORDER BY num DESC
+             #               LIMIT 3) as subq, articles
+              #      WHERE subq.path LIKE '/article/' || articles.slug
+               #     ORDER BY subq.num DESC
+                #    '''
+
         popularArtclesQuery = '''
-                    SELECT articles.title, subq.num
-                    FROM   (SELECT path, count(path) as num
-                            FROM log
-                            WHERE path != '/'
-                            GROUP BY path
-                            ORDER BY num DESC
-                            LIMIT 3) as subq, articles
-                    WHERE subq.path LIKE '%/article/' || articles.slug
-                    ORDER BY subq.num DESC
+                    SELECT articles.title, count(log.path) as num
+                    FROM   log, articles
+                    WHERE log.path LIKE '/article/' || articles.slug
+                    GROUP BY articles.title
+                    ORDER BY num DESC
+                    LIMIT 3
                     '''
 
         returned_vals = self.runQuery(popularArtclesQuery)
@@ -58,7 +69,7 @@ class reportingTool():
                 SELECT authors.name, sum(subq.count) as subqcount
                 FROM   (SELECT articles.slug, articles.author, count(log.path)
                         FROM articles, log
-                        WHERE log.path LIKE '%/article/' || articles.slug
+                        WHERE log.path LIKE '/article/' || articles.slug
                         GROUP BY articles.slug, articles.author) as subq,
                             authors
                 WHERE subq.author = authors.id
@@ -110,4 +121,4 @@ report = reportingTool('news')
 
 report.mostPopularArticles()
 report.mostPopularAuthors()
-report.daysAboveFailLimit()
+#report.daysAboveFailLimit()
