@@ -22,8 +22,9 @@ If Using the database-included branch, follow these steps to get up and running
 psql -d news -f newsdata.sql
 ```
 * To run the logs- execute the following command in the same terminal window
-* python logs.py
-
+```
+python logs.py
+```
 
 Running the logs.py file will run the following three queries automatically, and output them to the console.
 
